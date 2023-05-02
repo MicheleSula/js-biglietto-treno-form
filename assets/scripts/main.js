@@ -1,22 +1,23 @@
 // Variables
 const ticketGenerator = document.querySelector("#ticket-generator");
 const clearValues = document.querySelector("#clear-values");
-const onlyLetters = /^[A-Za-z\s]+$/;
-const minCp = 10000;
-const maxCp = 99999;
-const minCarriage = 1;
-const maxCarriage = 12;
+
 
 // Function to generate train ticket
 ticketGenerator.addEventListener("click",
     function createTicket() {
 
-        // Variables
+        // Variables LET
         let userName = document.getElementById("username").value;
         let age = document.getElementById("age").value;
         let km = document.getElementById("km").value;
         
-        
+        // Variables CONST
+        const lettersRegExp = /^[A-Za-z\s]+$/;
+        const minCp = 10000;
+        const maxCp = 99999;
+        const minCarriage = 1;
+        const maxCarriage = 12;
         
         // Price
         price = km * 0.21;
@@ -37,14 +38,13 @@ ticketGenerator.addEventListener("click",
             document.getElementById("ticket").innerHTML = price + "€";
             document.getElementById("nome").innerHTML = userName;
           } else  {
-            alert("Non hai inserito correttamente i dati!");
+            alert("Non hai compilato tutti i campi!");
             document.getElementById("ticket").innerHTML = "";
             document.getElementById("nome").innerHTML = "";
           }
         
         // Letters checker for username input with error message toggle
-        if (userName.match(onlyLetters)) {
-            userName = userName;
+        if (userName.match(lettersRegExp)) {
             document.getElementById("lettersHelp").classList.add('hidden-text');
         } else {
             // alert("In nome e cognome vanno inserite solo lettere!");
@@ -68,9 +68,15 @@ ticketGenerator.addEventListener("click",
         cpRandomNumber = getRandomNumberCp(minCp, maxCp);
 
         function getRandomNumberCp(minCp, maxCp) {
+            if ((km != "" && km !== null) && (userName != "" && userName !== null)) {
             min = Math.ceil(minCp);
             max = Math.floor(maxCp);
             return Math.floor(Math.random() * (maxCp - minCp) + minCp);
+            } else if (userName.match(lettersRegExp) && isNaN(km)){
+                return cpRandomNumber = "";
+            } else {
+                return cpRandomNumber = "";
+            }
           }
         
           document.getElementById("codice-cp").innerHTML = cpRandomNumber;
@@ -93,6 +99,7 @@ ticketGenerator.addEventListener("click",
 // Inputclear on-click
 clearValues.addEventListener("click",
     function clearFields() {
+        // Clear form data
         let km = document.getElementById("km");
         let userName = document.getElementById("username");
         
@@ -104,8 +111,11 @@ clearValues.addEventListener("click",
             userName.value = "";
         }
         
+        // Clear generated ticket data
         document.getElementById("ticket").innerHTML = "";
         document.getElementById("nome").innerHTML = "";
+        document.getElementById("codice-cp").innerHTML = "";
+        document.getElementById("numero-carrozza").innerHTML = "";
     }
 );
 

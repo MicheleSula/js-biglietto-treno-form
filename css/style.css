@@ -37,9 +37,6 @@ header {
     background-color: azure;
     border: 2px groove lightgray;
     border-radius: 20px;
-    position: absolute;
-    top: 20%;
-    left: 15%;
 }
 
 #current-ticket {
@@ -48,9 +45,6 @@ header {
     background-color: azure;
     border: 2px groove lightgray;
     border-radius: 20px;
-    position: absolute;
-    top: 50%;
-    left: 15%;
 }
 
 #blackband {
